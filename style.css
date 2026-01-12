@@ -1,45 +1,107 @@
+/* Layout Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color: #0a0a0a;
-    color: #e0e0e0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #050505;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    height: 100-vh;
     display: flex;
     flex-direction: column;
+}
+
+/* Navbar Styling */
+.navbar {
+    background: #111;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin: 0;
-    padding: 20px;
+    padding: 0 20px;
+    height: 50px;
+    border-bottom: 2px solid #333;
+    z-index: 1000;
 }
 
-#ui-layer {
-    text-align: center;
-    margin-bottom: 20px;
+.nav-links {
+    list-style: none;
+    display: flex;
 }
 
-#cockpit-container {
+.dropdown {
     position: relative;
-    width: 90vw;
-    max-width: 1000px;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-    border: 4px solid #333;
+    display: inline-block;
 }
 
-#bg-image {
-    width: 100%;
+.dropbtn {
+    color: #00ff00;
+    padding: 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #111;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+    z-index: 1;
+}
+
+.dropdown-content a,
+.nav-label {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+}
+
+.dropdown-content a:hover {
+    background-color: #222;
+    color: #00ff00;
+}
+
+.dropdown:hover .dropdown-content {
     display: block;
 }
 
-/* Hitboxes: Calibrated for the mockup image */
+/* The Simulation Stage */
+#simulation-stage {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#cockpit-viewport {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    aspect-ratio: 16 / 9;
+    /* Adjust this to match your image's ratio */
+    background-image: url('cockpit-v1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 1);
+}
+
+/* Re-using hitbox and glow logic from previous step */
 .hitbox {
     position: absolute;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0);
-    /* Invisible by default */
-    border: 1px solid transparent;
-    transition: 0.2s;
 }
 
-/* Debug mode styling */
 .show-hitboxes .hitbox {
-    background: rgba(0, 255, 255, 0.3);
+    background: rgba(0, 255, 255, 0.2);
     border: 1px solid cyan;
 }
 
@@ -48,7 +110,6 @@ body {
     left: 5.5%;
     width: 8%;
     height: 12%;
-    border-radius: 10px;
 }
 
 #hitbox-engine {
@@ -56,19 +117,8 @@ body {
     left: 14%;
     width: 8%;
     height: 12%;
-    border-radius: 50%;
 }
 
-#hitbox-aux {
-    top: 40%;
-    left: 1%;
-    width: 5%;
-    height: 10%;
-}
-
-/* Placeholder aux loc */
-
-/* Glow Effects */
 .glow {
     position: absolute;
     width: 2.5%;
@@ -78,11 +128,4 @@ body {
     pointer-events: none;
     background: #00ff00;
     box-shadow: 0 0 15px currentColor;
-    transition: opacity 0.3s;
-}
-
-.debug-controls {
-    margin-top: 20px;
-    font-size: 0.8em;
-    color: #666;
 }

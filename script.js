@@ -11,6 +11,17 @@ const glowEngine = document.getElementById('glow-engine');
 const debugToggle = document.getElementById('debug-toggle');
 const container = document.getElementById('cockpit-container');
 
+// Add this at the top of your existing script.js
+const statusDisplay = document.getElementById('status-display');
+
+// Inside your battery event listener:
+statusDisplay.innerText = isPowerOn ? "SYSTEMS READY" : "SYSTEM OFFLINE";
+statusDisplay.style.color = isPowerOn ? "#00ff00" : "#ff0000";
+
+// Inside your engine event listener:
+statusDisplay.innerText = "ENGINE ACTIVE";
+statusDisplay.style.color = "gold";
+
 // --- Interactions ---
 
 // 1. Master Battery Toggle

@@ -4,35 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Cockpit Prototype</title>
+    <title>Flight Sim Prototype</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div id="ui-layer">
-        <h1>Flight Sim Lite</h1>
-        <div class="plane-info">
-            <span id="plane-name">Current: F-18 Hornet</span>
-            <button id="unlock-btn" onclick="togglePremium()">Unlock Premium Planes</button>
+    <nav class="navbar">
+        <div class="nav-logo">SKY-LINK v1.0</div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Aircraft Selection ▼</a>
+                <div class="dropdown-content">
+                    <a href="#" onclick="selectPlane('F-18')">F-18 Hornet (Free)</a>
+                    <a href="#" onclick="selectPlane('F-35')">F-35 Lightning (Premium)</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Settings ▼</a>
+                <div class="dropdown-content">
+                    <label class="nav-label">
+                        <input type="checkbox" id="debug-toggle"> Show Hitboxes
+                    </label>
+                    <a href="#" onclick="togglePremium()">Purchase Premium</a>
+                </div>
+            </li>
+        </ul>
+        <div id="status-display">SYSTEM OFFLINE</div>
+    </nav>
+
+    <main id="simulation-stage">
+        <div id="cockpit-viewport">
+            <div class="hitbox" id="hitbox-battery"></div>
+            <div class="hitbox" id="hitbox-engine"></div>
+
+            <div class="glow" id="glow-power" style="top: 38%; left: 90.5%;"></div>
+            <div class="glow" id="glow-engine" style="top: 47%; left: 90.5%; background: gold;"></div>
         </div>
-    </div>
-
-    <div id="cockpit-container">
-        <img src="cockpit-v1.png" id="bg-image" alt="Cockpit Background">
-
-        <div class="hitbox" id="hitbox-battery" title="Master Power"></div>
-        <div class="hitbox" id="hitbox-engine" title="Engine Start"></div>
-        <div class="hitbox" id="hitbox-aux" title="Aux Lights"></div>
-
-        <div class="glow" id="glow-power" style="top: 38%; left: 90.5%;"></div>
-        <div class="glow" id="glow-engine" style="top: 47%; left: 90.5%; background: gold;"></div>
-        <div class="glow" id="glow-aux" style="top: 59.5%; left: 90.5%; background: cyan;"></div>
-    </div>
-
-    <div class="debug-controls">
-        <label><input type="checkbox" id="debug-toggle"> Show Hitboxes (Dev Mode)</label>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
