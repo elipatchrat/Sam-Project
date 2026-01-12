@@ -1,53 +1,60 @@
-// 1. App State
-let isPremiumUser = false;
-let batteryOn = false;
-let engineRunning = false;
+// --- State Tracking ---
+let isPowerOn = false;
+let isEngineRunning = false;
+let isPremium = false;
 
-// 2. DOM Elements
-const batterySwitch = document.getElementById('battery-switch');
-const engineBtn = document.getElementById('engine-btn');
-const lightBattery = document.getElementById('light-battery');
-const lightEngine = document.getElementById('light-engine');
-const planeDisplay = document.getElementById('current-plane');
+// --- DOM Elements ---
+const hbBattery = document.getElementById('hitbox-battery');
+const hbEngine = document.getElementById('hitbox-engine');
+const glowPower = document.getElementById('glow-power');
+const glowEngine = document.getElementById('glow-engine');
+const debugToggle = document.getElementById('debug-toggle');
+const container = document.getElementById('cockpit-container');
 
-// 3. Logic Functions
-batterySwitch.addEventListener('change', (e) => {
-    batteryOn = e.target.checked;
+// --- Interactions ---
 
-    // Update Visuals
-    lightBattery.style.backgroundColor = batteryOn ? "#00ff00" : "#444";
+// 1. Master Battery Toggle
+hbBattery.addEventListener('click', () => {
+    isPowerOn = !isPowerOn;
+    glowPower.style.opacity = isPowerOn ? "1" : "0";
 
-    // Engine can only be clicked if battery is ON
-    engineBtn.disabled = !batteryOn;
-
-    if (!batteryOn) {
-        engineRunning = false;
-        lightEngine.style.backgroundColor = "#444";
+    // Safety: If power goes off, engine dies
+    if (!isPowerOn) {
+        isEngineRunning = false;
+        glowEngine.style.opacity = "0";
     }
+    console.log("Master Battery:", isPowerOn);
 });
 
-engineBtn.addEventListener('mousedown', () => {
-    if (batteryOn) {
-        // Simulating engine crank
-        planeDisplay.innerText += "...Cranking...";
-        setTimeout(() => {
-            engineRunning = true;
-            lightEngine.style.backgroundColor = "#ffcc00";
-            planeDisplay.innerText = "ENGINE RUNNING";
-        }, 1500);
-    }
-});
-
-function selectPlane(plane) {
-    if (plane === 'F-35' && !isPremiumUser) {
-        alert("This plane requires a Premium Account!");
+// 2. Engine Start Logic
+hbEngine.addEventListener('click', () => {
+    if (!isPowerOn) {
+        alert("CRITICAL: No electrical power. Check Master Battery.");
         return;
     }
-    planeDisplay.innerText = "Active Plane: " + plane;
+
+    // Simulate ignition delay
+    console.log("Cranking engine...");
+    setTimeout(() => {
+        isEngineRunning = true;
+        glowEngine.style.opacity = "1";
+        console.log("Engine Stable.");
+    }, 800);
+});
+
+// 3. Premium Toggle
+function togglePremium() {
+    isPremium = !isPremium;
+    document.getElementById('unlock-btn').innerText = isPremium ? "Premium Active" : "Unlock Premium Planes";
+    document.getElementById('plane-name').innerText = isPremium ? "Current: F-35 Lightning II" : "Current: F-18 Hornet";
+    alert(isPremium ? "Premium Access Granted!" : "Back to Basic Access.");
 }
 
-function unlockPremium() {
-    isPremiumUser = true;
-    document.getElementById('premium-btn').innerText = "F-35 (Unlocked!)";
-    alert("Premium Unlocked! You can now access the F-35.");
-}
+// 4. Debug Helper
+debugToggle.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        container.classList.add('show-hitboxes');
+    } else {
+        container.classList.remove('show-hitboxes');
+    }
+});
