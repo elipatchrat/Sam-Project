@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Cockpit Prototype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>Flight Sim Lite - Dev Build</h1>
+
+        <div class="plane-selector">
+            <button onclick="selectPlane('Cessna')">Cessna (Free)</button>
+            <button id="premium-btn" onclick="selectPlane('F-35')">F-35 (Premium 🔒)</button>
+            <button onclick="unlockPremium()" style="background:gold; color:black;">Buy Premium</button>
+        </div>
+
+        <div id="cockpit-container">
+            <h2 id="current-plane">Select a Plane</h2>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label>Master Battery</label>
+                    <input type="checkbox" id="battery-switch">
+                </div>
+
+                <div class="control-group">
+                    <label>Engine Start</label>
+                    <button id="engine-btn" disabled>HOLD TO START</button>
+                </div>
+            </div>
+
+            <div class="indicators">
+                <div id="light-battery" class="light">BATTERY</div>
+                <div id="light-engine" class="light">ENGINE</div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
